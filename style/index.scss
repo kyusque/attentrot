@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'DSEG7Classic-Bold';
+    src: url('/static/fonts/DSEG7Classic-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.record {
+    .header {
+        font-size: 3vh;
+        margin: 20px 0;
+    }
+
+    .clock {
+        font-family: 'DSEG7Classic-Bold';
+        font-size: 10vh;
+        margin: 100px 0;
+        user-select: none;
+    }
+
+    .logout {
+        color: #333;
+    }
+}
+
+.login {
+    .login-buttons-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+}

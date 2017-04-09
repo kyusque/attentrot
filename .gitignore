@@ -1,0 +1,4 @@
+dev.sqlite3
+production.sqlite
+node_modules
+tmp
