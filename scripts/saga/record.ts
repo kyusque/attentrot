@@ -53,10 +53,16 @@ function* syncServer(ms: number) {
     }
 }
 
+function* handleAuthenticationFailed() {
+    yield call(delay, 5000);
+    location.pathname = '/';
+}
+
 export default function* recordSaga(): IterableIterator<any> {
     yield fork(takeLatest, A.GET_STATUS, getStatus);
     yield fork(takeLatest, A.POST_RECORD, postRecord);
     yield fork(takeLatest, A.TOGGLE_BREAK, toggleBreak);
+    yield fork(takeLatest, A.AUTHENTICATION_FAILED, handleAuthenticationFailed);
 
     yield fork(put, A.SetLoginToken(cookie.get('login')));
     yield fork(put, A.GetStatus);

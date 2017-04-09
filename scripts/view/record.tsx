@@ -101,7 +101,7 @@ export default class RecordApp extends React.Component<State&A.Dispatcher, {}> {
                 return <AlertBox>データベースエラー: {phase.message}</AlertBox>
 
             case A.AUTHENTICATION_FAILED:
-                return <AlertBox>ログインしていません</AlertBox>
+                return <AlertBox>ログインに失敗しました。5秒後にログイン画面に戻ります。</AlertBox>
 
             case A.NOT_ACCEPTABLE_EVENT:
                 return <AlertBox>現在の状態 ({phase.current}) では記録できないイベント ({phase.next}) です</AlertBox>
