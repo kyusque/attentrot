@@ -10,7 +10,8 @@ import {GetStatusSuccess} from './action/api/status';
 import {PostRecordSuccess, AttendanceEventType} from './action/api/record';
 
 const option: AxiosRequestConfig = {
-    validateStatus: () => true
+    validateStatus: () => true,
+    timeout: 5000,
 }
 
 function checkData(result: AxiosResponse): any {
