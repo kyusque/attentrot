@@ -68,7 +68,7 @@ export default class RecordApp extends React.Component<State&A.Dispatcher, {}> {
                            onClick={_ => clockInOk && this.postRecord(CLOCK_IN)}>出席</a>
                         <a className={classNames(['btn', 'btn-default'], {'btn-primary': attendance.type === ATTENDANCE_LEAVE})}
                            disabled={!clockOutOk}
-                           onClick={_ => clockOutOk && this.postRecord(CLOCK_OUT)}>帰宅</a>
+                           onClick={_ => clockOutOk && window.confirm('帰宅しますか？') && this.postRecord(CLOCK_OUT)}>帰宅</a>
                     </div>
 
                     <div className="btn-group btn-group-lg btn-group-justified" role="group">
