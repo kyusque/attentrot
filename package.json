@@ -80,6 +80,8 @@
     "watch:devserver": "nodemon -e js,pug -w pug -w dist dist/server",
     "watch:font": "npm run build:font -- -w",
     "clean": "rimraf static dist tmp",
-    "run": "node dist/server/index.js"
+    "migration": "knex migrate:latest",
+    "run:server": "node dist/server/index.js",
+    "run": "run-s migration run:server"
   }
 }
