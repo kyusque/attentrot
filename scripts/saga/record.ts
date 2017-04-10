@@ -66,6 +66,6 @@ export default function* recordSaga(): IterableIterator<any> {
 
     yield fork(put, A.SetLoginToken(cookie.get('login')));
     yield fork(put, A.GetStatus);
-    yield fork(updateClock, 100);
+    yield fork(updateClock, process.env.NODE_ENV === 'production' ? 100 : 1000);
     yield fork(syncServer, 10000);
 }
