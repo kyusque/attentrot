@@ -40,7 +40,7 @@ const login: Express.Application = express()
         return;
     }
 
-    const login = signUser(safeUser(user));
+    const login = await signUser(safeUser(user));
     res.cookie('login', login, {path: '/'})
     res.send(PostLoginSuccess({user, login}));
 })

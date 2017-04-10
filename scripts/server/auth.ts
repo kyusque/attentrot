@@ -2,12 +2,25 @@ import {Request, Response, NextFunction} from 'express';
 import {User} from '../state/parts/users';
 import * as jwt from 'jsonwebtoken';
 import * as randomstring from 'randomstring';
+import * as fsp from 'fs-promise';
 
-function loadSecret() {
-    return randomstring.generate({length: 64});
+let secretFile = 'secret.txt';
+let secret: string|null = null;
+
+export async function loadSecret(file: string): Promise<string> {
+    if (secret) {
+        return secret;
+    }
+
+    try {
+        const buf = await fsp.readFile(file);
+        return buf.toString();
+    } catch(e) {
+        const state = randomstring.generate({ length: 64 });
+        await fsp.writeFile(file, state);
+        return state;
+    }
 }
-
-const secret = loadSecret();
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -60,8 +73,9 @@ function failRedirect(to: string): FailedFunction {
 }
 
 export function requireAuth(failed: FailedFunction = failRedirect('/login'), source: 'cookie'|'header' = 'cookie') {
-    return (req: Request, res: Response, next: NextFunction) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
         try {
+            const secret = await loadSecret(secretFile);
             res.locals.login = jwt.verify(getLogin(req, source) || '', secret);
         } catch (e) {
             failed(req, res, next);
@@ -72,8 +86,9 @@ export function requireAuth(failed: FailedFunction = failRedirect('/login'), sou
 }
 
 export function requireNoAuth (failed: FailedFunction = failRedirect('/')) {
-    return (req: Request, res: any, next: NextFunction) => {
+    return async (req: Request, res: any, next: NextFunction) => {
         try {
+            const secret = await loadSecret(secretFile);
             jwt.verify(req.cookies.login, secret);
             failed(req, res, next);
         } catch (e) {
@@ -82,7 +97,8 @@ export function requireNoAuth (failed: FailedFunction = failRedirect('/')) {
     }
 }
 
-export function signUser (obj: User) {
+export async function signUser (obj: User) {
+    const secret = await loadSecret(secretFile);
     const expiry = Math.floor(createExpiry() / 1000)
     return jwt.sign({ ...obj, exp: expiry }, secret);
 }
