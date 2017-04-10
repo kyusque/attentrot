@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {User} from '../state/parts/users';
 
 import AlertBox from './parts/alert-box';
 import {State} from '../state/login';
@@ -35,6 +36,13 @@ export default class LoginApp extends React.Component<State&A.Dispatcher, {}> {
 
     render() {
         const {users, id} = this.props;
+        let targetUser: User | null = null;
+        for (let i in this.props.users) {
+            const user = this.props.users[i];
+            if (user.id === id) {
+                targetUser = user;
+            }
+        }
         return (
             <div className="container login">
                 <h1>ログイン</h1>
@@ -50,7 +58,7 @@ export default class LoginApp extends React.Component<State&A.Dispatcher, {}> {
                     <div className="form-group">
                         <label htmlFor="otp" className="col-sm-2 control-label">パスワード</label>
                         <div className="col-sm-10">
-                            <OtpInput id="otp" onChange={(v) => this.setPassword(v)} />
+                            <OtpInput disabled={targetUser ? targetUser.authType === 'none' : false} id="otp" onOtpUpdate={(v) => this.setPassword(v)} />
                         </div>
                     </div>
                     <div className="login-buttons-wrapper">

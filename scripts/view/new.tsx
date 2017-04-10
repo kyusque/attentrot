@@ -14,7 +14,7 @@ export default class NewUserApp extends React.Component<State&A.Dispatcher, {}> 
         if (!qrcode) return;
         return (
             <form className="form-inline" onSubmit={v => this.submit(v)}>
-                <OtpInput onChange={v => this.setPassword(v)}/>
+                <OtpInput onOtpUpdate={v => this.setPassword(v)}/>
                 <button className="btn btn-primary" type="submit">確認</button>
             </form>
         );
