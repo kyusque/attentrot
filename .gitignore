@@ -3,3 +3,5 @@ production.sqlite
 node_modules
 tmp
 secret.txt
+static/
+dist/
