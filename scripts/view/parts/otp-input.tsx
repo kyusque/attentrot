@@ -12,6 +12,7 @@ export default class OtpInput extends React.Component<Props, {otp: string}> {
 
     render() {
         const { id } = this.props;
+        console.log(this.props)
         return (
             <input {...this.props} className="form-control" type="text" placeholder="\\d{6}" onChange={v => this.onChange(v)} value={this.state.otp} id={id}/>
         )
