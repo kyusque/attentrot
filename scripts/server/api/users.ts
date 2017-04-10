@@ -12,7 +12,7 @@ const users: Express.Application = express()
 
 .get('', async (req, res) => {
     const target: GetUsersTarget | undefined = req.query.target;
-    const query = knex.select(['id', 'name', 'verified', 'authType', 'admin', 'active']).from(table.USERS);
+    const query = knex.select().from(table.USERS);
 
     switch (target) {
         case 'verified':
