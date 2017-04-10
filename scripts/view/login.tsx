@@ -30,7 +30,6 @@ export default class LoginApp extends React.Component<State&A.Dispatcher, {}> {
             default:
                 exhaustive(phase);
                 return null;
-
         }
     }
 
@@ -54,7 +53,6 @@ export default class LoginApp extends React.Component<State&A.Dispatcher, {}> {
                             <UserSelect id="userSelect" users={users} onChange={v => this.selectUser(v)} selectedId={id} />
                         </div>
                     </div>
-
                     <div className="form-group">
                         <label htmlFor="otp" className="col-sm-2 control-label">パスワード</label>
                         <div className="col-sm-10">
