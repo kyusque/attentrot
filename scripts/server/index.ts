@@ -14,6 +14,8 @@ import api_login from './api/login';
 import api_record from './api/record';
 import api_status from './api/status';
 
+import config from './config';
+
 const tiny_template = pug.compileFile('./pug/tiny.pug');
 
 express()
@@ -55,4 +57,4 @@ express()
     res.redirect('/login');
 })
 
-.listen(parseInt(process.env.PORT) || 3000);
+.listen(parseInt(process.env.PORT) || config.port);

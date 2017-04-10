@@ -5,3 +5,4 @@ tmp
 secret.txt
 static/
 dist/
+config.js

@@ -10,6 +10,9 @@ import * as table from '../../table-names';
 import {AlreadyVerified, GenerationFailed, PostQRCodeIssueSuccess} from '../../../action/api/qrcode/issue';
 import {DatabaseError} from '../../../action/api/_errors';
 
+import config from '../../config';
+
+
 const qrcode_issue: Express.Application = express()
 
 .post('', async (req, res) => {
@@ -27,7 +30,7 @@ const qrcode_issue: Express.Application = express()
         return;
     }
 
-    const url = `otpauth://totp/薬情?secret=${secret}`;
+    const url = `otpauth://totp/${encodeURIComponent(config.otpName)}?secret=${secret}`;
     qrcode.toDataURL(url, (err, data) => {
         if (err) {
             res.status(500).send(GenerationFailed(err.toString()))
