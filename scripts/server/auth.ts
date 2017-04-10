@@ -3,6 +3,7 @@ import {User} from '../state/parts/users';
 import * as jwt from 'jsonwebtoken';
 import * as randomstring from 'randomstring';
 import * as fsp from 'fs-promise';
+import config from './config';
 
 let secretFile = 'secret.txt';
 let secret: string|null = null;
@@ -33,7 +34,7 @@ export function todayRange(): [number, number] {
 function createExpiry(): number {
     const now = Date.now();
     const next = new Date(now);
-    next.setHours(6);
+    next.setHours(config.renewDay);
     next.setMinutes(0);
     next.setSeconds(0);
     next.setMilliseconds(0);

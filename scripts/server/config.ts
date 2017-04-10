@@ -1,14 +1,25 @@
 export interface Config {
     otpName: string;
     port: number;
+    renewDay: number;
+}
+
+const defConf: Config = {
+    otpName: 'attentrot',
+    port: 3000,
+    renewDay: 0,
 }
 
 function loadConfig(): Config {
     try {
         const c = require('../../config');
-        return {otpName: c.otpName || 'attentrot', port: c.port || 3000};
+        return {
+            otpName: c.otpName || defConf.otpName,
+            port: c.port || defConf.port,
+            renewDay: c.renewDay || defConf.renewDay,
+        };
     } catch (_) {
-        return {otpName: 'attentrot', port: 3000};
+        return defConf;
     }
 }
 const config = loadConfig();
