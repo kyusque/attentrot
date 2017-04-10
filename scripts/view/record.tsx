@@ -41,6 +41,47 @@ class Clock extends React.Component<ClockProps, {}> {
     }
 }
 
+interface DropdownProps {children?: React.ReactNode}
+
+
+class Dropdown extends React.Component<DropdownProps, {on: boolean, callback: (e: MouseEvent) => void}> {
+    constructor(props: DropdownProps) {
+        super(props);
+        this.state = {on: false, callback: (e) => this.hideMenu(e)};
+    }
+
+    render() {
+        const {on} = this.state;
+        return (
+            <div className="pull-right dropdown">
+                <button ref="menu" className={classNames("btn btn-default dropdown-toggle", {active: on})} onClick={_ => this.toggle()} type="button"><i className="fa fa-bars fa-lg" aria-hidden="true"/></button>
+                <ul className="dropdown-menu" style={{display: on ? 'block' : null}}>
+                    {this.props.children}
+                </ul>
+            </div>
+        )
+    }
+
+    toggle() {
+        this.setState({on: !this.state.on});
+    }
+
+    hideMenu(e: MouseEvent) {
+        if (e.target !== this.refs.menu) {
+            this.setState({ on: false });
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.state.callback);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.state.callback);
+    }
+}
+
+
 export default class RecordApp extends React.Component<State&A.Dispatcher, {}> {
     render() {
         const {user, attendance} = this.props;
@@ -56,7 +97,9 @@ export default class RecordApp extends React.Component<State&A.Dispatcher, {}> {
             <div className="container record">
                 <div className="row header clearfix">
                     <div className="name pull-left">{user.name} さん</div>
-                    <div className="pull-right"><a className="logout" href='/logout'><i className="fa fa-sign-out" aria-hidden="true"></i></a></div>
+                    <Dropdown>
+                        <li><a className="logout" href='/logout'><i className="fa fa-sign-out" aria-hidden="true" />ログアウト</a></li>
+                    </Dropdown>
                 </div>
 
                 {this.error()}
