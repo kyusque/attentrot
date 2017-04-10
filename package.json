@@ -73,7 +73,7 @@
     "build:css:sass": "node-sass style/index.scss -o tmp",
     "build:css:postcss": "postcss -c postcss.config.js tmp/index.css -d static",
     "build:font": "cpx fonts/\\* static/fonts",
-    "watch": "npm-run-all -s build -p watch:*",
+    "watch": "npm-run-all -s build db:migration db:seed -p watch:*",
     "watch:ts": "npm run build:js:ts -- -w",
     "watch:babel": "npm run build:js:babel -- -w",
     "watch:webpack": "npm run build:js:webpack -- -w",
@@ -83,8 +83,9 @@
     "watch:devserver": "nodemon -e js,pug -w pug -w dist dist/server",
     "watch:font": "npm run build:font -- -w",
     "clean": "rimraf static dist tmp",
-    "migration": "knex migrate:latest",
+    "db:migration": "knex migrate:latest",
+    "db:seed": "knex seed:run",
     "run:server": "node dist/server/index.js",
-    "run": "run-s migration run:server"
+    "run": "run-s db:migration run:server"
   }
 }
