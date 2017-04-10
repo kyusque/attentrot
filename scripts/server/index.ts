@@ -55,4 +55,4 @@ express()
     res.redirect('/login');
 })
 
-.listen(3000);
+.listen(parseInt(process.env.PORT) || 3000);
