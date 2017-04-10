@@ -6,6 +6,7 @@ import * as A from '../action/new';
 import UserSelect from './parts/user-select';
 import OtpInput from './parts/otp-input';
 import {exhaustive} from '../utils';
+import AlertBox from './parts/alert-box';
 
 export default class NewUserApp extends React.Component<State&A.Dispatcher, {}> {
     renderQRValidate() {
@@ -19,10 +20,20 @@ export default class NewUserApp extends React.Component<State&A.Dispatcher, {}> 
         );
     }
 
-    renderQRImage() {
+    qrcodeStep() {
         const {qrcode} = this.props;
         if(!qrcode) return;
-        return <div><img src={qrcode} /></div>;
+
+        return (
+            <div>
+                <h3>3. 2段階認証アプリでQRコードを読み取る</h3>
+                <div><img src={qrcode} /></div>;
+
+                <h3>4. 6ケタの数字を入力して「確認」</h3>
+
+                {this.renderQRValidate()}
+            </div>
+        )
     }
 
     render() {
@@ -31,6 +42,8 @@ export default class NewUserApp extends React.Component<State&A.Dispatcher, {}> 
         return (
             <div className="container">
                 <h1>ログイン登録</h1>
+                {this.renderResult()}
+
                 <h3>1. 2段階認証アプリをインストール</h3>
                 <div>
                     <h3>android</h3>
@@ -45,14 +58,7 @@ export default class NewUserApp extends React.Component<State&A.Dispatcher, {}> 
                     <button className="btn btn-default" onClick={() => this.issueQRCode()}>QRコード発行</button>
                 </div>
 
-                <h3>3. 2段階認証アプリでQRコードを読み取る</h3>
-
-                {this.renderQRImage()}
-
-                <h3>4. 6ケタの数字を入力して「確認」</h3>
-
-                {this.renderQRValidate()}
-                {this.renderResult()}
+                {this.qrcodeStep()}
 
                 <div className="text-right">
                     <a href="/">戻る</a>
@@ -65,25 +71,25 @@ export default class NewUserApp extends React.Component<State&A.Dispatcher, {}> 
         const {phase} = this.props;
         switch (phase.type) {
             case A.POST_QRCODE_VERIFY_SUCCESS:
-                return <h1>完了しました</h1>;
+                return <AlertBox type="success">登録が完了しました</AlertBox>;
 
             case A.ALREADY_VERIFIED:
-                return <h1>既に携帯電話が登録されているアカウントです</h1>
+                return <AlertBox>既に携帯電話が登録されているアカウントです</AlertBox>
 
             case A.DATABASE_ERROR:
-                return <h1>データベースエラー: {phase.message}</h1>
+                return <AlertBox>データベースエラー: {phase.message}</AlertBox>
 
             case A.GENERATION_FAILED:
-                return <h1>QRコードを生成できませんでした</h1>
+                return <AlertBox>QRコードを生成できませんでした</AlertBox>
 
             case A.QRCODE_VERIFY_FAILURE:
-                return <h1>パスワードを間違えています</h1>
+                return <AlertBox>パスワードを間違えています</AlertBox>
 
             case A.NO_SUCH_USER_ID:
-                return <h1>IDが存在しません</h1>
+                return <AlertBox>IDが存在しません</AlertBox>
 
             case A.RAW_ERROR:
-                return <h1>不明なエラー: {phase.message}</h1>
+                return <AlertBox>不明なエラー: {phase.message}</AlertBox>
 
             case null:
                 return;
