@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-export interface Props {
-    onChange?: (ev: string) => any;
-    id?: string;
+export interface Props extends React.HTMLAttributes<HTMLInputElement> {
+    onOtpUpdate?: (ev: string) => any;
 }
 
 export default class OtpInput extends React.Component<Props, {otp: string}> {
@@ -14,7 +13,7 @@ export default class OtpInput extends React.Component<Props, {otp: string}> {
     render() {
         const { id } = this.props;
         return (
-            <input className="form-control" type="text" placeholder="\\d{6}" onChange={v => this.onChange(v)} value={this.state.otp} id={id}/>
+            <input {...this.props} className="form-control" type="text" placeholder="\\d{6}" onChange={v => this.onChange(v)} value={this.state.otp} id={id}/>
         )
     }
 
@@ -24,7 +23,7 @@ export default class OtpInput extends React.Component<Props, {otp: string}> {
 
         if (value === newValue) {
             this.setState({ otp: newValue }, () => {
-                if (this.props.onChange) this.props.onChange(newValue);
+                if (this.props.onOtpUpdate) this.props.onOtpUpdate(newValue);
             });
         }
     }
