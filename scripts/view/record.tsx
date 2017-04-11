@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as A from '../action/record';
 import {State} from '../state/record';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import {ATTENDANCE_WORKING, ATTENDANCE_BREAK, ATTENDANCE_LEAVE, CLOCK_IN, CLOCK_OUT, PostRecord, ToggleBreak, isAcceptableEvent} from '../action/record';
 import {exhaustive} from '../utils';
 import AlertBox from './parts/alert-box';
@@ -54,7 +54,7 @@ class Dropdown extends React.Component<DropdownProps, {on: boolean, callback: (e
         const {on} = this.state;
         return (
             <div className="pull-right dropdown">
-                <button ref="button" className={classNames("btn btn-default dropdown-toggle", {active: on})} onClick={_ => this.toggle()} type="button">
+                <button ref="button" className={classnames("btn btn-default dropdown-toggle", {active: on})} onClick={_ => this.toggle()} type="button">
                     <i ref="icon" className="fa fa-bars fa-lg" aria-hidden="true"/>
                 </button>
                 <ul className="dropdown-menu" style={{display: on ? 'block' : null}}>
@@ -108,16 +108,16 @@ export default class RecordApp extends React.Component<State&A.Dispatcher, {}> {
                 <Clock time={this.props.workTime || undefined}/>
                 <div className="row">
                     <div className="btn-group btn-group-lg btn-group-justified" role="group">
-                        <a className={classNames(['btn', 'btn-default'], {'btn-primary': attendance.type === ATTENDANCE_WORKING})}
+                        <a className={classnames(['btn', 'btn-default'], {'btn-primary': attendance.type === ATTENDANCE_WORKING})}
                            disabled={!clockInOk}
                            onClick={_ => clockInOk && this.postRecord(CLOCK_IN)}>出席</a>
-                        <a className={classNames(['btn', 'btn-default'], {'btn-primary': attendance.type === ATTENDANCE_LEAVE})}
+                        <a className={classnames(['btn', 'btn-default'], {'btn-primary': attendance.type === ATTENDANCE_LEAVE})}
                            disabled={!clockOutOk}
                            onClick={_ => clockOutOk && window.confirm('帰宅しますか？') && this.postRecord(CLOCK_OUT)}>帰宅</a>
                     </div>
 
                     <div className="btn-group btn-group-lg btn-group-justified" role="group">
-                        <a className={classNames(['btn', 'btn-default'], {active: attendance.type === ATTENDANCE_BREAK})}
+                        <a className={classnames(['btn', 'btn-default'], {active: attendance.type === ATTENDANCE_BREAK})}
                            disabled={!breakOk}
                            onClick={_ => breakOk && this.toggleBreak()}>休憩</a>
                     </div>
