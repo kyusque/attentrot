@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import {ATTENDANCE_WORKING, ATTENDANCE_BREAK, ATTENDANCE_LEAVE, CLOCK_IN, CLOCK_OUT, PostRecord, ToggleBreak, isAcceptableEvent} from '../action/record';
 import {exhaustive} from '../utils';
 import AlertBox from './parts/alert-box';
+import {Dropdown} from './parts/dropdown';
 
 function padding02(n: number): string {
     const s = n.toString();
@@ -41,49 +42,6 @@ class Clock extends React.Component<ClockProps, {}> {
     }
 }
 
-interface DropdownProps {children?: React.ReactNode}
-
-
-class Dropdown extends React.Component<DropdownProps, {on: boolean, callback: (e: MouseEvent) => void}> {
-    constructor(props: DropdownProps) {
-        super(props);
-        this.state = {on: false, callback: (e) => this.hideMenu(e)};
-    }
-
-    render() {
-        const {on} = this.state;
-        return (
-            <div className="pull-right dropdown">
-                <button ref="button" className={classnames("btn btn-default dropdown-toggle", {active: on})} onClick={_ => this.toggle()} type="button">
-                    <i ref="icon" className="fa fa-bars fa-lg" aria-hidden="true"/>
-                </button>
-                <ul className="dropdown-menu" style={{display: on ? 'block' : null}}>
-                    {this.props.children}
-                </ul>
-            </div>
-        )
-    }
-
-    toggle() {
-        this.setState({on: !this.state.on});
-    }
-
-    hideMenu(e: MouseEvent) {
-        if (e.target !== this.refs.button && e.target !== this.refs.icon) {
-            this.setState({ on: false });
-        }
-    }
-
-    componentDidMount() {
-        document.addEventListener('click', this.state.callback);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('click', this.state.callback);
-    }
-}
-
-
 export default class RecordApp extends React.Component<State&A.Dispatcher, {}> {
     render() {
         const {user, attendance} = this.props;
@@ -100,6 +58,8 @@ export default class RecordApp extends React.Component<State&A.Dispatcher, {}> {
                 <div className="row header clearfix">
                     <div className="name pull-left">{user.name} さん</div>
                     <Dropdown>
+                        <li><a href="/calendar"><i className="fa fa-calendar" aria-hidden="true" /> 出席確認</a></li>
+                        <li role="separator" className="divider"/>
                         <li><a className="logout" href='/logout'><i className="fa fa-sign-out" aria-hidden="true" />ログアウト</a></li>
                     </Dropdown>
                 </div>

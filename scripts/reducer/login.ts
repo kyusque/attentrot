@@ -31,4 +31,3 @@ export default function loginReducer(state: State = initialState, action: A.Acti
             return state;
     }
 }
-

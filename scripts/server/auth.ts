@@ -1,4 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
+import {AuthenticationFailed} from '../action/api/_errors';
 import {User} from '../state/parts/users';
 import * as jwt from 'jsonwebtoken';
 import * as randomstring from 'randomstring';
@@ -69,11 +70,7 @@ export interface FailedFunction {
     (req: Request, res: Response, next: NextFunction): void
 }
 
-function failRedirect(to: string): FailedFunction {
-    return (_r, res, _n) => res.redirect(302, to)
-}
-
-export function requireAuth(failed: FailedFunction = failRedirect('/login'), source: 'cookie'|'header' = 'cookie') {
+export function makeRequireAuth(failed: FailedFunction, source: 'cookie'|'header') {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const secret = await loadSecret(secretFile);
@@ -86,15 +83,16 @@ export function requireAuth(failed: FailedFunction = failRedirect('/login'), sou
     }
 }
 
-export function requireNoAuth (failed: FailedFunction = failRedirect('/')) {
-    return async (req: Request, res: any, next: NextFunction) => {
-        try {
-            const secret = await loadSecret(secretFile);
-            jwt.verify(req.cookies.login, secret);
-            failed(req, res, next);
-        } catch (e) {
-            next();
-        }
+export const requireAuthPage = makeRequireAuth((_q, res, _n) => res.redirect(302, '/login'), 'cookie');
+export const requireAuthAPI = makeRequireAuth((_q, res, _n) => res.status(401).send(AuthenticationFailed), 'header');
+
+export async function requireNoAuthPage (req: Request, res: any, next: NextFunction) {
+    try {
+        const secret = await loadSecret(secretFile);
+        jwt.verify(req.cookies.login, secret);
+        res.redirect(302, '/');
+    } catch (e) {
+        next();
     }
 }
 

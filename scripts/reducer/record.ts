@@ -32,7 +32,12 @@ export default function recordReducer(state: State = initialState, action: A.Act
         case A.GET_STATUS:
             return state;
         case A.GET_STATUS_SUCCESS:
-            return {...state, user: action.user, attendance: action.attendance, phase: {type: null}}
+            return {...state, attendance: action.attendance, phase: {type: null}}
+
+        case A.GET_USER:
+            return state;
+        case A.GET_USER_SUCCESS:
+            return {...state, user: action.user};
 
         case A.POST_RECORD:
             return state;

@@ -33,3 +33,11 @@
         justify-content: center;
     }
 }
+
+.DayPicker-Day--attendance {
+  background-color: lightgreen;
+}
+
+.DayPicker-Day--not-attendance {
+  background-color: lightgray;
+}
