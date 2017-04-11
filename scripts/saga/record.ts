@@ -6,6 +6,7 @@ import {delay} from 'redux-saga';
 import * as A from '../action/record';
 import {ATTENDANCE_WORKING, ATTENDANCE_BREAK} from '../action/api/status';
 import {PostRecord, UpdateClock, BREAK_START, BREAK_END} from '../action/api/record';
+import getUserSaga from './parts/user';
 
 import * as api from '../api';
 
@@ -59,13 +60,15 @@ function* handleAuthenticationFailed() {
 }
 
 export default function* recordSaga(): IterableIterator<any> {
+    yield fork(getUserSaga);
     yield fork(takeLatest, A.GET_STATUS, getStatus);
     yield fork(takeLatest, A.POST_RECORD, postRecord);
     yield fork(takeLatest, A.TOGGLE_BREAK, toggleBreak);
     yield fork(takeLatest, A.AUTHENTICATION_FAILED, handleAuthenticationFailed);
 
-    yield fork(put, A.SetLoginToken(cookie.get('login')));
+    yield put(A.SetLoginToken(cookie.get('login')));
     yield fork(put, A.GetStatus);
+    yield fork(put, A.GetUser);
     yield fork(updateClock, process.env.NODE_ENV === 'production' ? 100 : 1000);
     yield fork(syncServer, 10000);
 }

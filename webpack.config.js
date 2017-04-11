@@ -20,6 +20,7 @@ module.exports = {
         new: './tmp/page/new',
         login: './tmp/page/login',
         record: './tmp/page/record',
+        calendar: './tmp/page/calendar',
     },
     output: {
         path: path.join(__dirname, 'static'),

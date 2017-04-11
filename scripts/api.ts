@@ -3,6 +3,7 @@ import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import entry_points from './server/api/entry-points';
 
 import {GetUsersSuccess, GetUsersTarget} from './action/api/users';
+import {GetUserSuccess} from './action/api/user';
 import {PostQRCodeIssueSuccess} from './action/api/qrcode/issue';
 import {PostQRCodeVerifySuccess} from './action/api/qrcode/verify';
 import {PostLoginSuccess} from './action/api/login';
@@ -35,6 +36,12 @@ export async function verifyQRCode({id, password}: {id: number, password: number
 
 export async function login({id, password}: {id: number, password: number}): Promise<PostLoginSuccess> {
     return checkData(await axios.post(entry_points.login, {id, password}, option));
+}
+
+export async function getUser(login: string): Promise<GetUserSuccess> {
+    return checkData(await axios.get(entry_points.user, {...option, headers: {
+        Authorization: 'Bearer ' + login
+    }}))
 }
 
 export async function status(login: string): Promise<GetStatusSuccess> {

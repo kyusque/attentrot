@@ -7,6 +7,7 @@ const entry_points = {
     record: '/record',
     status: '/status',
     users: '/users',
+    user: '/user',
 }
 
 export default entry_points;

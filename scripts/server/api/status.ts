@@ -3,9 +3,9 @@ import express from 'express';
 import {Transaction} from 'knex';
 import knex from '../knex';
 import * as table from '../table-names';
-import {User, safeUser} from '../../state/parts/users';
-import {requireAuth, todayRange} from '../auth';
-import { AuthenticationFailed, DatabaseError } from '../../action/api/_errors';
+import {User} from '../../state/parts/users';
+import {requireAuthAPI, todayRange} from '../auth';
+import { DatabaseError } from '../../action/api/_errors';
 import {CLOCK_IN, CLOCK_OUT, BREAK_START, BREAK_END, AttendanceEventType}  from '../../action/api/record';
 import {ATTENDANCE_YET, ATTENDANCE_WORKING, ATTENDANCE_BREAK, ATTENDANCE_LEAVE}  from '../../action/api/status';
 import {AttendancePhase, GetStatusSuccess}  from '../../action/api/status';
@@ -53,10 +53,10 @@ export async function getAttendanceEvents(id: number, range: [number, number], t
 
 const status: Express.Application = express()
 
-.get('', requireAuth((_q, res, _n) => res.status(401).send(AuthenticationFailed), 'header'), async (_req, res) => {
+.get('', requireAuthAPI, async (_req, res) => {
     try {
         const user: User = res.locals.login;
-        res.send(GetStatusSuccess({attendance: toAttendancePhase(await getAttendanceEvents(user.id, todayRange())), user: safeUser(user)}));
+        res.send(GetStatusSuccess(toAttendancePhase(await getAttendanceEvents(user.id, todayRange()))));
     } catch (e) {
         res.send(DatabaseError(e.toString()));
     }

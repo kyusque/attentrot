@@ -37,7 +37,7 @@ export function* handleSelectUser({id}: SelectUser): IterableIterator<any> {
     window.localStorage.setItem('userId', JSON.stringify(id));
 }
 
-export default function* userSaga(target: GetUsersTarget): IterableIterator<any> {
+export default function* usersSaga(target: GetUsersTarget): IterableIterator<any> {
     yield fork(takeLatest, GET_USERS, getUsers);
     yield fork(takeLatest, SELECT_USER, handleSelectUser)
     yield fork(takeLatest, GET_USERS_SUCCESS, handleGetUsersSuccess);

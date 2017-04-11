@@ -1,5 +1,4 @@
 import {DatabaseError} from './_errors';
-import {User} from '../../state/parts/users';
 
 export const GET_STATUS = 'GET /status';
 export const GET_STATUS_SUCCESS = 'GET /status success';
@@ -16,12 +15,12 @@ export type AttendancePhase
     | {type: typeof ATTENDANCE_LEAVE, clockIn: number, workTime: number, eventStart: number}
 
 export interface GetStatus {type: typeof GET_STATUS}
-export interface GetStatusSuccess {type: typeof GET_STATUS_SUCCESS, attendance: AttendancePhase, user: User}
+export interface GetStatusSuccess {type: typeof GET_STATUS_SUCCESS, attendance: AttendancePhase}
 
 export const GetStatus: GetStatus = {type: GET_STATUS}
 
-export function GetStatusSuccess({user, attendance}: {user: User, attendance: AttendancePhase}): GetStatusSuccess {
-    return {type: GET_STATUS_SUCCESS, attendance, user}
+export function GetStatusSuccess(attendance: AttendancePhase): GetStatusSuccess {
+    return {type: GET_STATUS_SUCCESS, attendance}
 }
 
 export type GetStatusFailure

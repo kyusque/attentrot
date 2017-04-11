@@ -2,18 +2,18 @@ import express from 'express';
 
 import {isAcceptableEvent}  from '../../action/api/record';
 import knex from '../knex';
-import {requireAuth, todayRange} from '../auth';
+import {requireAuthAPI, todayRange} from '../auth';
 import {getAttendanceEvents, toAttendancePhase} from './status';
 
 import * as table from '../table-names';
 
 import { PostRecordSuccess, NotAcceptableEvent} from '../../action/api/record';
 import {ATTENDANCE_LEAVE} from '../../action/api/status';
-import { AuthenticationFailed, DatabaseError } from '../../action/api/_errors';
+import { DatabaseError } from '../../action/api/_errors';
 
 const record: Express.Application = express()
 
-.post('', requireAuth((_q, res, _n) => res.status(401).send(AuthenticationFailed), 'header'), async (req, res) => {
+.post('', requireAuthAPI, async (req, res) => {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const userId = res.locals.login.id;
     const event = req.body.event;

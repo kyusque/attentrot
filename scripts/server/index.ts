@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 
-import {requireAuth, requireNoAuth} from './auth';
+import {requireAuthPage, requireNoAuthPage} from './auth';
 
 import entry_points from './api/entry-points';
 import api_users from './api/users';
@@ -13,6 +13,7 @@ import api_qrcode_verify from './api/qrcode/verify';
 import api_login from './api/login';
 import api_record from './api/record';
 import api_status from './api/status';
+import api_user from './api/user';
 
 import config from './config';
 
@@ -35,24 +36,29 @@ express()
 .use(entry_points.record, api_record as any)
 .use(entry_points.status, api_status as any)
 .use(entry_points.users, api_users as any)
+.use(entry_points.user, api_user as any)
 
-.get('/new', requireNoAuth(), (_req, res) => {
+.get('/new', requireNoAuthPage, (_req, res) => {
     res.send(tiny_template({title: 'ユーザー登録', script: 'static/new.js'}));
 })
 
-.get('/login', requireNoAuth(), (_req, res) => {
+.get('/login', requireNoAuthPage, (_req, res) => {
     res.send(tiny_template({ title: 'ログイン', script: 'static/login.js' }));
 })
 
-.get('/record', requireAuth(), (_req, res) => {
+.get('/record', requireAuthPage, (_req, res) => {
     res.send(tiny_template({ title: '出席管理', script: 'static/record.js' }));
+})
+
+.get('/calendar', requireAuthPage, (_req, res) => {
+    res.send(tiny_template({ title: '出席確認', script: 'static/calendar.js' }));
 })
 
 .get('/', (_req, res) => {
     res.redirect(302, '/record');
 })
 
-.get('/logout', requireAuth(), (_req, res) => {
+.get('/logout', requireAuthPage, (_req, res) => {
     res.clearCookie('login');
     res.redirect('/login');
 })
