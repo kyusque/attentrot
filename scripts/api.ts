@@ -9,6 +9,7 @@ import {PostQRCodeVerifySuccess} from './action/api/qrcode/verify';
 import {PostLoginSuccess} from './action/api/login';
 import {GetStatusSuccess} from './action/api/status';
 import {PostRecordSuccess, AttendanceEventType} from './action/api/record';
+import {GetCalendarSuccess} from './action/api/calendar';
 
 const option: AxiosRequestConfig = {
     validateStatus: () => true,
@@ -54,4 +55,8 @@ export async function record({login, event}: {login: string, event: AttendanceEv
     return checkData(await axios.post(entry_points.record, {event}, {...option, headers: {
         Authorization: 'Bearer ' + login
     }}));
+}
+
+export async function getCalendar({year, ids}: {year?: number, ids: number|number[]}): Promise<GetCalendarSuccess> {
+    return checkData(await axios.get(entry_points.calendar, {...option, params: {year, id: ids}}));
 }

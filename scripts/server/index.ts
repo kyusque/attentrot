@@ -14,6 +14,7 @@ import api_login from './api/login';
 import api_record from './api/record';
 import api_status from './api/status';
 import api_user from './api/user';
+import api_calendar from './api/calendar';
 
 import config from './config';
 
@@ -37,6 +38,7 @@ express()
 .use(entry_points.status, api_status as any)
 .use(entry_points.users, api_users as any)
 .use(entry_points.user, api_user as any)
+.use(entry_points.calendar, api_calendar as any)
 
 .get('/new', requireNoAuthPage, (_req, res) => {
     res.send(tiny_template({title: 'ユーザー登録', script: 'static/new.js'}));

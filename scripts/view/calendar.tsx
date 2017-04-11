@@ -2,11 +2,12 @@ import * as React from 'react';
 import {State} from '../state/calendar';
 import * as A from '../action/calendar';
 import {Dropdown} from './parts/dropdown';
+import DayPicker from 'react-day-picker';
 
 export default class CalendarView extends React.Component<State&A.Dispatcher, {}> {
     render() {
-        const {user} = this.props;
-        if (!user) {
+        const {user, yearStart, attendances, notAttendances} = this.props;
+        if (!user || !yearStart) {
             return null;
         }
 
@@ -20,6 +21,14 @@ export default class CalendarView extends React.Component<State&A.Dispatcher, {}
                         <li><a className="logout" href='/logout'><i className="fa fa-sign-out" aria-hidden="true" /> ログアウト</a></li>
                     </Dropdown>
                 </div>
+                <DayPicker
+                    canChangeMonth={false}
+                    month={new Date(2017, yearStart - 1)}
+                    modifiers={{
+                        attendance: attendances,
+                        'not-attendance': notAttendances,
+                    }}
+                    numberOfMonths={12} />
             </div>
         )
     }

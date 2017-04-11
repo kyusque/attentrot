@@ -4,6 +4,7 @@ import {isAcceptableEvent}  from '../../action/api/record';
 import knex from '../knex';
 import {requireAuthAPI, todayRange} from '../auth';
 import {getAttendanceEvents, toAttendancePhase} from './status';
+import {toDateStamp} from './stamp';
 
 import * as table from '../table-names';
 
@@ -35,7 +36,7 @@ const record: Express.Application = express()
             const newPhase = toAttendancePhase(events);
             if (newPhase.type === ATTENDANCE_LEAVE) {
                 const date = new Date(range[0]);
-                const stamp = 10000 * date.getFullYear() + 100 * date.getMonth() + date.getDate();
+                const stamp = toDateStamp(date);
                 const current = await knex(table.ATTENDANCE).transacting(trx).first('userId').where('userId', '=', userId).where('date', '=', stamp);
                 if (!current) {
                     await knex(table.ATTENDANCE).transacting(trx).insert({userId, date: stamp, workTime: newPhase.workTime});

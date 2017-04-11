@@ -1,13 +1,14 @@
 const entry_points = {
     qrcode: {
-        issue: '/qrcode/issue',
-        verify: '/qrcode/verify',
+        issue: '/api/qrcode/issue',
+        verify: '/api/qrcode/verify',
     },
-    login: '/login',
-    record: '/record',
-    status: '/status',
-    users: '/users',
-    user: '/user',
+    login: '/api/login',
+    record: '/api/record',
+    status: '/api/status',
+    users: '/api/users',
+    user: '/api/user',
+    calendar: '/api/calendar',
 }
 
 export default entry_points;
