@@ -3,9 +3,7 @@ import qrcode from 'qrcode';
 
 import * as speakeasy from 'speakeasy';
 
-import knex from '../../knex';
-
-import * as table from '../../table-names';
+import {table, default as knex} from '../../database';
 
 import {AlreadyVerified, GenerationFailed, PostQRCodeIssueSuccess} from '../../../action/api/qrcode/issue';
 import {DatabaseError} from '../../../action/api/_errors';
@@ -20,7 +18,7 @@ const qrcode_issue: Express.Application = express()
     const secret = speakeasy.generateSecret({}).base32;
 
     try {
-        const cont = await knex(table.USERS).update({ secret: secret }).where('id', '=', id).where('verified', '=', false);
+        const cont = await knex(table.users).update({ secret: secret }).where('id', '=', id).where('verified', '=', false);
         if (!cont) {
             res.status(400).send(AlreadyVerified(id));
             return;

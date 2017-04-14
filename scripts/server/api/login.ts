@@ -2,10 +2,9 @@ import express from 'express';
 
 import * as speakeasy from 'speakeasy';
 
-import knex from '../knex';
+import {table, default as knex} from '../database';
 import {signUser} from '../auth';
 import {safeUser} from '../../state/parts/users';
-import * as table from '../table-names';
 
 import {PostLoginSuccess} from '../../action/api/login';
 import { DatabaseError, AuthenticationFailed, NoSuchUserID } from '../../action/api/_errors';
@@ -26,7 +25,7 @@ const login: Express.Application = express()
 
     let user;
     try {
-        user = await knex.first().from(table.USERS).where('id', '=', id);
+        user = await knex.first().from(table.users).where('id', '=', id);
         if (!user) {
             res.status(401).send(NoSuchUserID(id));
             return;

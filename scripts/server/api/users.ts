@@ -1,9 +1,8 @@
 import express from 'express';
 
-import knex from '../knex';
+import {table, default as knex} from '../database';
 
 import {User} from '../../state/parts/users';
-import * as table from '../table-names';
 
 import {GetUsersSuccess, GetUsersTarget} from '../../action/api/users';
 import {DatabaseError} from '../../action/api/_errors';
@@ -12,7 +11,7 @@ const users: Express.Application = express()
 
 .get('', async (req, res) => {
     const target: GetUsersTarget | undefined = req.query.target;
-    const query = knex.select().from(table.USERS);
+    const query = knex.select().from(table.users);
 
     switch (target) {
         case 'verified':

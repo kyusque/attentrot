@@ -1,8 +1,6 @@
 import express from 'express';
-import knex from '../knex';
+import {table, default as knex} from '../database';
 import {toDateStamp} from './stamp';
-
-import * as table from '../table-names';
 
 import config from '../config';
 
@@ -22,7 +20,7 @@ const user: Express.Application = express()
     const start = 10000 * year + 100 * config.yearStart + 1;
     const endDate = new Date(new Date(year + 1, config.yearStart, 1).getTime() - DAY_MS);
     const end = toDateStamp(endDate);
-    const query = knex(table.ATTENDANCE).select().whereBetween('date', [start, end]);
+    const query = knex(table.attendance).select().whereBetween('date', [start, end]);
     if (ids.length > 0) {
         query.whereIn('userId', ids);
     }

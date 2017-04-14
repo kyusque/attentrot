@@ -10,3 +10,9 @@ const knex = KNEX(knexconfig);
 knex.raw('PRAGMA foreign_keys = true;')
 
 export default knex;
+
+export const table = {
+    users: 'users',
+    attendance_events: 'attendance_events',
+    attendance: 'attendance',
+}

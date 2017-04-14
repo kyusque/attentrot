@@ -1,8 +1,7 @@
 import express from 'express';
 
 import {Transaction} from 'knex';
-import knex from '../knex';
-import * as table from '../table-names';
+import {table, default as knex} from '../database';
 import {User} from '../../state/parts/users';
 import {requireAuthAPI, todayRange} from '../auth';
 import { DatabaseError } from '../../action/api/_errors';
@@ -44,7 +43,7 @@ export function toAttendancePhase(events: Array<AttendanceEvent>): AttendancePha
 }
 
 export async function getAttendanceEvents(id: number, range: [number, number], tsx?: Transaction): Promise<Array<AttendanceEvent>> {
-    const today = knex(table.ATTENDANCE_EVENTS).select(['event', 'at']).where('userId', '=', id).whereBetween('at', range).orderBy('at');
+    const today = knex(table.attendance_events).select(['event', 'at']).where('userId', '=', id).whereBetween('at', range).orderBy('at');
     if (tsx) {
         today.transacting(tsx);
     }
