@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {User} from '../../state/parts/users';
+import {User} from '../../common/users';
 
 export interface Props {
     users: Array<User>;

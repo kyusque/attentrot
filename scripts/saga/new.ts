@@ -1,13 +1,13 @@
 import {call, put, fork, takeLatest}  from 'redux-saga/effects';
 
-import {GetUsers} from '../action/api/users';
-
 import usersSaga from './parts/users';
 
 import * as api from '../api';
 
 import * as A from '../action/new';
+import {GetUsers} from '../action/api/users';
 import {RawError} from '../action/api/_errors'
+
 
 function* issueQRCode({id}: A.PostQRCodeIssue) {
     try {

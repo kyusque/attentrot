@@ -1,14 +1,16 @@
-import * as cookie from 'js-cookie';
-
-import {State} from '../state/record';
 import {call, put, fork, select, takeLatest}  from 'redux-saga/effects';
 import {delay} from 'redux-saga';
-import * as A from '../action/record';
-import {ATTENDANCE_WORKING, ATTENDANCE_BREAK} from '../action/api/status';
-import {PostRecord, UpdateClock, BREAK_START, BREAK_END} from '../action/api/record';
+import * as cookie from 'js-cookie';
+
 import getUserSaga from './parts/user';
 
 import * as api from '../api';
+
+import * as A from '../action/record';
+import {PostRecord, UpdateClock, BREAK_START, BREAK_END} from '../action/api/record';
+import {ATTENDANCE_WORKING, ATTENDANCE_BREAK} from '../action/api/status';
+
+import {State} from '../state/record';
 
 function* getStatus() {
     try {

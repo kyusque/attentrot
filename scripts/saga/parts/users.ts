@@ -1,10 +1,11 @@
 import {call, fork, takeLatest, put}  from 'redux-saga/effects';
 
+import * as api from '../../api';
+
 import {RawError} from '../../action/api/_errors';
 import {SelectUser, SELECT_USER} from '../../action/parts/select-user';
 import {GET_USERS, GetUsers, GetUsersTarget, GetUsersSuccess, GET_USERS_SUCCESS} from '../../action/api/users';
 
-import * as api from '../../api';
 
 export function* getUsers({target}: GetUsers): IterableIterator<any> {
     try {

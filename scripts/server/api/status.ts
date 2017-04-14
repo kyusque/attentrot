@@ -1,13 +1,16 @@
 import express from 'express';
-
 import {Transaction} from 'knex';
-import {table, default as knex} from '../database';
-import {User} from '../../state/parts/users';
-import {requireAuthAPI, todayRange} from '../auth';
-import { DatabaseError } from '../../action/api/_errors';
-import {CLOCK_IN, CLOCK_OUT, BREAK_START, BREAK_END, AttendanceEventType}  from '../../action/api/record';
-import {ATTENDANCE_YET, ATTENDANCE_WORKING, ATTENDANCE_BREAK, ATTENDANCE_LEAVE}  from '../../action/api/status';
+
 import {AttendancePhase, GetStatusSuccess}  from '../../action/api/status';
+
+import {User} from '../../common/users';
+import {requireAuthAPI, todayRange} from '../auth';
+
+import {table, default as knex} from '../database';
+
+import {ATTENDANCE_YET, ATTENDANCE_WORKING, ATTENDANCE_BREAK, ATTENDANCE_LEAVE}  from '../../action/api/status';
+import {CLOCK_IN, CLOCK_OUT, BREAK_START, BREAK_END, AttendanceEventType}  from '../../action/api/record';
+import { DatabaseError } from '../../action/api/_errors';
 
 export interface AttendanceEvent {
     event: AttendanceEventType;

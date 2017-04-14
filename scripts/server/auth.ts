@@ -1,10 +1,14 @@
 import {Request, Response, NextFunction} from 'express';
-import {AuthenticationFailed} from '../action/api/_errors';
-import {User} from '../state/parts/users';
 import * as jwt from 'jsonwebtoken';
 import * as randomstring from 'randomstring';
 import * as fsp from 'fs-promise';
+
+import {User} from '../common/users';
+
+import {AuthenticationFailed} from '../action/api/_errors';
+
 import config from './config';
+
 
 let secretFile = 'secret.txt';
 let secret: string|null = null;

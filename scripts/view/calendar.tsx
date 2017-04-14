@@ -1,10 +1,13 @@
 import * as React from 'react';
-import {State} from '../state/calendar';
-import * as A from '../action/calendar';
-import {Dropdown} from './parts/dropdown';
 import DayPicker from 'react-day-picker';
 
-export default class CalendarView extends React.Component<State&A.Dispatcher, {}> {
+import {Dropdown} from './parts/dropdown';
+
+import {State} from '../state/calendar';
+
+import {Dispatcher} from '../action/calendar';
+
+export default class CalendarView extends React.Component<State&Dispatcher, {}> {
     render() {
         const {user, yearStart, attendances, notAttendances} = this.props;
         if (!user || !yearStart) {

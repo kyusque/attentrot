@@ -1,5 +1,7 @@
-import {User} from './parts/users';
+import {User} from '../common/users';
 import * as A from '../action/new';
+
+export {User} from '../common/users';
 
 export type Phase
     = A.DatabaseError

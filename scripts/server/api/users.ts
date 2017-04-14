@@ -1,8 +1,8 @@
 import express from 'express';
 
-import {table, default as knex} from '../database';
+import {User} from '../../common/users';
 
-import {User} from '../../state/parts/users';
+import {table, default as knex} from '../database';
 
 import {GetUsersSuccess, GetUsersTarget} from '../../action/api/users';
 import {DatabaseError} from '../../action/api/_errors';

@@ -7,6 +7,7 @@ import {table, default as knex} from '../../database';
 import {PostQRCodeVerifySuccess, QRCodeVerifyFailure} from '../../../action/api/qrcode/verify';
 import {DatabaseError, NoSuchUserID} from '../../../action/api/_errors';
 
+
 const qrcode_verify: Express.Application = express()
 
 .post('', async (req, res) => {

@@ -7,9 +7,10 @@ import compression from 'compression';
 import {requireAuthPage, requireNoAuthPage} from './auth';
 
 import entry_points from './api/entry-points';
-import api_users from './api/users';
+
 import api_qrcode_issue from './api/qrcode/issue';
 import api_qrcode_verify from './api/qrcode/verify';
+import api_users from './api/users';
 import api_login from './api/login';
 import api_record from './api/record';
 import api_status from './api/status';
@@ -17,6 +18,7 @@ import api_user from './api/user';
 import api_calendar from './api/calendar';
 
 import config from './config';
+
 
 const tiny_template = pug.compileFile('./pug/tiny.pug');
 

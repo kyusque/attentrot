@@ -11,6 +11,7 @@ import {GetStatusSuccess} from './action/api/status';
 import {PostRecordSuccess, AttendanceEventType} from './action/api/record';
 import {GetCalendarSuccess} from './action/api/calendar';
 
+
 const option: AxiosRequestConfig = {
     validateStatus: () => true,
     timeout: 5000,

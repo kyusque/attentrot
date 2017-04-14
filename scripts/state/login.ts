@@ -1,5 +1,8 @@
-import {User} from './parts/users';
+import {User} from '../common/users';
 import * as A from '../action/login';
+
+export {User} from '../common/users';
+
 
 export type Phase
     = A.AuthenticationFailed

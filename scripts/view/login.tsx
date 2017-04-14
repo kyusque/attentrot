@@ -1,12 +1,14 @@
 import * as React from 'react';
-import {User} from '../state/parts/users';
 
 import AlertBox from './parts/alert-box';
-import {State} from '../state/login';
-import * as A from '../action/login';
 import UserSelect from './parts/user-select';
 import OtpInput from './parts/otp-input';
-import {exhaustive} from '../utils';
+
+import {State, User} from '../state/login';
+
+import * as A from '../action/login';
+
+import exhaustive from '../common/exhaustive';
 
 export default class LoginApp extends React.Component<State&A.Dispatcher, {}> {
     renderError() {

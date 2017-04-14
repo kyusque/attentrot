@@ -1,8 +1,9 @@
 import {State, initialState} from '../state/calendar';
-import {exhaustive} from '../utils';
-import {fromDateStamp} from '../server/api/stamp';
-
 import * as A from '../action/calendar';
+
+import exhaustive from '../common/exhaustive';
+import {fromDateStamp} from '../common/stamp';
+
 
 export default function loginReducer(state: State = initialState, action: A.Action): State {
     switch (action.type) {

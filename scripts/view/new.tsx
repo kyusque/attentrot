@@ -1,12 +1,14 @@
 import * as React from 'react';
 
-import {State} from '../state/new';
-import * as A from '../action/new';
-
 import UserSelect from './parts/user-select';
 import OtpInput from './parts/otp-input';
-import {exhaustive} from '../utils';
 import AlertBox from './parts/alert-box';
+
+import {State} from '../state/new';
+
+import * as A from '../action/new';
+
+import exhaustive from '../common/exhaustive';
 
 export default class NewUserApp extends React.Component<State&A.Dispatcher, {}> {
     renderQRValidate() {

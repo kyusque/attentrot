@@ -1,6 +1,8 @@
 import {AttendancePhase, ATTENDANCE_YET} from '../action/api/status';
-import {User} from './parts/users';
+import {User} from '../common/users';
 import * as A from '../action/record';
+
+export {User} from '../common/users';
 
 export type Phase
      = A.DatabaseError

@@ -1,4 +1,6 @@
-import {User} from './parts/users';
+import {User} from '../common/users';
+
+export {User} from '../common/users';
 
 export interface State {
     user: User | null;

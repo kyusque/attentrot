@@ -1,16 +1,16 @@
 import {State, initialState} from '../state/record';
-import {AttendancePhase, ATTENDANCE_YET, ATTENDANCE_WORKING} from '../action/record';
-import {exhaustive} from '../utils';
-
 import * as A from '../action/record';
 
-function toWorkTime({now, attendance}: {now: number, attendance: AttendancePhase}): [number, number, number] | null {
-        if (attendance.type == ATTENDANCE_YET) {
+import exhaustive from '../common/exhaustive';
+
+
+function toWorkTime({now, attendance}: {now: number, attendance: A.AttendancePhase}): [number, number, number] | null {
+        if (attendance.type == A.ATTENDANCE_YET) {
             return null;
        }
 
         let time = attendance.workTime;
-        if (attendance.type === ATTENDANCE_WORKING) {
+        if (attendance.type === A.ATTENDANCE_WORKING) {
             time += now - attendance.eventStart;
         }
 

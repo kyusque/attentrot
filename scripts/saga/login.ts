@@ -1,9 +1,12 @@
 import {put, fork, call, takeLatest}  from 'redux-saga/effects';
 
-import * as api from '../api';
 import usersSaga from './parts/users';
+
+import * as api from '../api';
+
 import * as A from '../action/login';
 import {RawError} from '../action/api/_errors'
+
 
 export function* login(action: A.PostLogin): IterableIterator<any> {
     try {

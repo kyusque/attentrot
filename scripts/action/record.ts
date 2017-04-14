@@ -7,8 +7,8 @@ import {SetLoginToken} from './parts/set-login'
 export * from './api/status';
 export * from './api/record';
 export * from './api/user';
+export * from './parts/set-login'
 export {DATABASE_ERROR, DatabaseError, RAW_ERROR, RawError, AUTHENTICATION_FAILED, AuthenticationFailed} from './api/_errors';
-export {SET_LOGIN_TOKEN, SetLoginToken} from './parts/set-login'
 
 export const TOGGLE_BREAK: 'TOGGLE_BREAK' = 'TOGGLE_BREAK';
 

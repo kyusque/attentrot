@@ -1,12 +1,13 @@
 import express from 'express';
 
-import {isAcceptableEvent}  from '../../action/api/record';
-import {table, default as knex} from '../database';
-import {requireAuthAPI, todayRange} from '../auth';
 import {getAttendanceEvents, toAttendancePhase} from './status';
-import {toDateStamp} from './stamp';
 
-import { PostRecordSuccess, NotAcceptableEvent} from '../../action/api/record';
+import {requireAuthAPI, todayRange} from '../auth';
+import {toDateStamp} from '../../common/stamp';
+
+import {table, default as knex} from '../database';
+
+import {isAcceptableEvent, PostRecordSuccess, NotAcceptableEvent} from '../../action/api/record';
 import {ATTENDANCE_LEAVE} from '../../action/api/status';
 import { DatabaseError } from '../../action/api/_errors';
 

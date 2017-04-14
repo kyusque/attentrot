@@ -1,7 +1,8 @@
 import {State, initialState} from '../state/new';
-import {exhaustive} from '../utils';
-
 import * as A from '../action/new';
+
+import exhaustive from '../common/exhaustive';
+
 
 export default function newReducer(state: State = initialState, action: A.Action): State {
     switch (action.type) {

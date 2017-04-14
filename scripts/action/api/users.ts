@@ -1,4 +1,4 @@
-import {User, safeUser} from '../../state/parts/users';
+import {User, safeUser} from '../../common/users';
 import * as api from './_errors';
 
 export type GetUsersTarget = 'all' | 'verified' | 'nonverified';

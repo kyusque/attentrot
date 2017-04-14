@@ -1,5 +1,5 @@
 import {DatabaseError, AuthenticationFailed, NoSuchUserID} from './_errors';
-import {User, safeUser} from '../../state/parts/users';
+import {User, safeUser} from '../../common/users';
 
 export const POST_LOGIN = 'POST /login';
 export const POST_LOGIN_SUCCESS = 'POST /login success';

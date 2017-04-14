@@ -1,7 +1,8 @@
 import {State, initialState} from '../state/login';
-import {exhaustive} from '../utils';
-
 import * as A from '../action/login';
+
+import exhaustive from '../common/exhaustive';
+
 
 export default function loginReducer(state: State = initialState, action: A.Action): State {
     switch (action.type) {

@@ -1,5 +1,5 @@
 import {AuthenticationFailed} from './_errors';
-import {User, safeUser} from '../../state/parts/users';
+import {User, safeUser} from '../../common/users';
 
 export {AuthenticationFailed} from './_errors';
 

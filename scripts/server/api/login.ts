@@ -1,13 +1,14 @@
 import express from 'express';
-
 import * as speakeasy from 'speakeasy';
 
-import {table, default as knex} from '../database';
+import {safeUser} from '../../common/users';
 import {signUser} from '../auth';
-import {safeUser} from '../../state/parts/users';
+
+import {table, default as knex} from '../database';
 
 import {PostLoginSuccess} from '../../action/api/login';
 import { DatabaseError, AuthenticationFailed, NoSuchUserID } from '../../action/api/_errors';
+
 
 function checkAuth({type, secret, password}: {type: 'totp' | 'none', secret: string, password: number}): boolean {
     if (type === 'none') {
