@@ -20,7 +20,7 @@ const users: Express.Application = express()
     }
 
     try {
-        const users: Array<User> = await query;
+        const users: User[] = await query;
         res.send(GetUsersSuccess(users));
     } catch (e) {
         res.status(500).send(DatabaseError(e.toString()))

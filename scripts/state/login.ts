@@ -12,7 +12,7 @@ export type Phase
     | { type: null };
 
 export interface State {
-    users: Array<User>;
+    users: User[];
     id: number;
     phase: Phase,
     password: string;

@@ -14,7 +14,7 @@ export type Phase
 
 export interface State {
     id: number;
-    users: Array<User>;
+    users: User[];
     qrcode: string | null;
     password: string;
     phase: Phase;

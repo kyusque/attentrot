@@ -17,7 +17,7 @@ export interface AttendanceEvent {
     at: number
 }
 
-export function toAttendancePhase(events: Array<AttendanceEvent>): AttendancePhase {
+export function toAttendancePhase(events: AttendanceEvent[]): AttendancePhase {
     const clockIn = events[0];
 
     if (clockIn === undefined) {
@@ -45,7 +45,7 @@ export function toAttendancePhase(events: Array<AttendanceEvent>): AttendancePha
     }
 }
 
-export async function getAttendanceEvents(id: number, range: [number, number], tsx?: Transaction): Promise<Array<AttendanceEvent>> {
+export async function getAttendanceEvents(id: number, range: [number, number], tsx?: Transaction): Promise<AttendanceEvent[]> {
     const today = knex(table.attendance_events).select(['event', 'at']).where('userId', '=', id).whereBetween('at', range).orderBy('at');
     if (tsx) {
         today.transacting(tsx);

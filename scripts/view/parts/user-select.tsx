@@ -2,7 +2,7 @@ import * as React from 'react';
 import {User} from '../../common/users';
 
 export interface Props {
-    users: Array<User>;
+    users: User[];
     onChange?: (ev: number) => any;
     selectedId?: number;
     id?: string;
